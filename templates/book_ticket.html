@@ -1,0 +1,61 @@
+<!-- book_ticket.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Ticket</title>
+    {% load static %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <style>
+        /* Style for the popup */
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            border: 1px solid #ccc;
+            padding: 20px;
+            z-index: 1000;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 80%;
+            max-height: 80%;
+            overflow: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Book Ticket</h1>
+        <form id="bookTicketForm" method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="total_price">Total Price</label>
+                <input type="text" id="total_price" name="total_price" class="form-control" readonly value="{{ form.cleaned_data.total_price }}">
+            </div>
+            <button type="button" id="bookTicketBtn" class="btn btn-primary">Book Ticket</button>
+        </form>
+    </div>
+
+    <div id="popup" class="popup">
+        <h2>Booking Confirmation</h2>
+        <p>Your booking has been confirmed.</p>
+        <p>Total Price: <span id="popupTotalPrice"></span></p>
+        <button onclick="closePopup()" class="btn btn-primary">Close</button>
+    </div>
+
+    <script>
+        document.getElementById('bookTicketBtn').addEventListener('click', function () {
+            document.getElementById('popupTotalPrice').innerText = document.getElementById('total_price').value;
+            document.getElementById('popup').style.display = 'block';
+        });
+
+        function closePopup() {
+            document.getElementById('popup').style.display = 'none';
+        }
+    </script>
+</body>
+</html>

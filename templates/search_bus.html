@@ -1,0 +1,156 @@
+<!-- search_bus.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Buses</title>
+    <style>
+        .btn{
+            background-color: rgb(48, 84, 158);
+        }
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            border: 1px solid #ccc;
+            padding: 20px;
+            width: 500px; 
+            height: 500px; 
+            z-index: 1000;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 100%;
+            max-height: 80%;
+            overflow: auto;
+        }
+    </style>
+    {% load static %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/findbus.css' %}">
+
+</head>
+<body>
+    {% include "User_navbar.html" %}
+    <div class="form-container">
+        <h2 style="    background-color: rgb(14, 85, 186); text-align:center">FIND YOUR TRIP!</h2>
+        <form method="GET" action="/search_bus/">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="source">Source</label>
+                <input type="text" id="source" name="source" class="form-control" value="{{ request.GET.source }}">
+            </div>
+            <div class="form-group">
+                <label for="destination">Destination</label>
+                <input type="text" id="destination" name="destination" class="form-control" value="{{ request.GET.destination }}">
+            </div>
+            <div class="form-group">
+                <label for="date">Date</label>
+                <input type="date" id="date" name="date" class="form-control" value="{{ request.GET.date }}">
+            </div>
+            <button type="submit" name="search" class="btn" style="background-color: rgb(48, 84, 158); color:white">Search</button>
+        </form>
+    </div>
+    <div class="form-container2">  
+        {% if buses %}
+        <h1>SEARCH RESULTS</h1>
+        <table class="table">
+                <thead>
+                    <tr>
+                        <th>Bus Name</th>
+                        <th>Bus Number</th>
+                        <th>Source</th>
+                        <th>Destination</th>
+                        <th>Date</th>
+                        <th>Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for bus in buses %}
+                        <tr>
+                            <td>{{ bus.bus_name }}</td>
+                            <td>{{ bus.bus_no }}</td>
+                            <td>{{ bus.source }}</td>
+                            <td>{{ bus.destination }}</td>
+                            <td>{{ bus.date }}</td>
+                            <td>{{ bus.seat_price }}</td>
+                            <td><button type="button" style="background-color: rgb(48, 84, 158); color:white" class="btn book-ticket-btn"
+                                data-seat-price="{{ bus.seat_price }}" data-bus-id="{{bus.id}}">
+                            Book Ticket
+                        </button></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% elif buses is not None %}
+        <h1 style="text-align: center;background-color: rgb(14, 85, 186); color:white;height:20%;">NO BUSES FOUND</h1>
+        {% endif %}
+    </div>
+    <div id="popup" class="popup">
+        <h1 style="text-align: center;background-color: rgb(14, 85, 186); color:white;padding:1%;">CONFIRM DETAILS</h1>
+        <form method="POST" action="/bookticket/">
+            {% csrf_token %}
+            <input type="hidden" id="bus_id" name="bus_id" value="">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" class="form-control" value="{{username}}">
+            </div>
+            <div class="form-group">
+                <label for="source">Source</label>
+                <input type="text" id="source" name="source" class="form-control" value="{{ request.GET.source }}">
+            </div>
+            <div class="form-group">
+                <label for="destination">Destination</label>
+                <input type="text" id="destination" name="destination" class="form-control" value="{{ request.GET.destination }}">
+            </div>
+            <div class="form-group">
+                <label for="date">Date</label>
+                <input type="date" id="date" name="date" class="form-control" value="{{ request.GET.date }}">
+            </div>
+            <div class="form-group">
+                <label for="price">price</label>
+                <input type="text" id="price" name="price" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="seat">Seats</label>
+                <input type="text" id="seat" name="seat" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="amt">Total amount</label>
+                <input type="text" id="amt" name="amt" class="form-control">
+            </div>
+            <button type="submit" name="submit" class="btn btn-primary"style="background-color: rgb(14, 85, 186);">Confirm</button>
+            <button onclick="closePopup()" class="btn btn-primary" style="background-color: rgb(14, 85, 186);">Cancel</button>
+        </form>
+    </div>
+    <script>
+        document.querySelectorAll('.book-ticket-btn').forEach(btn => {
+            btn.addEventListener('click', function () {
+                const seatPrice = parseFloat(this.getAttribute('data-seat-price'));
+                const busID = parseFloat(this.getAttribute('data-bus-id'));
+                document.getElementById('price').value = seatPrice.toFixed(2);
+                document.getElementById('bus_id').value = busID.toFixed(2);
+                document.getElementById('popup').style.display = 'block';
+            });
+        });
+
+
+        function calprice() {
+            const price = parseFloat(document.getElementById('price').value);
+            const quantity = parseInt(document.getElementById('seat').value) || 0; // Ensure default to 0 if empty or NaN
+            const totalPrice = price * quantity;
+            document.getElementById('amt').value = totalPrice.toFixed(2);
+        }
+        
+        document.getElementById('seat').addEventListener('input', calprice);
+
+        function closePopup() {
+            document.getElementById('popup').style.display = 'none';
+        };
+    </script>
+    {% include "footer.html" %}
+</body>
+</html>

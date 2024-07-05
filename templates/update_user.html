@@ -1,0 +1,57 @@
+<!-- base.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Your Website{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/nav.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/reg.css' %}">
+    <style>
+        h1 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #fff;
+            width:40%;
+            margin-left:35%;
+            padding: 5px 5px;
+            text-align: center;
+            border-radius: 8px;
+            background-color:rgb(40, 99, 201);
+        }
+    </style>
+</head>
+<body>
+    {% include "admin_navbar.html" %}
+    <h1 class="text-center my-3">Update User</h1>
+    <div class="container">
+        <div class="form-container">
+                    <form action="/do_update/{{ std.id }}/" method="POST">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="fname">First Name</label>
+                            <input type="text" name="fname" class="form-control" id="roll" placeholder="Enter Roll Number" required value="{{ std.first_name }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="'lname">Last Name</label>
+                            <input type="text" name="lname" class="form-control" id="name" placeholder="Enter Student Name" required value="{{ std.last_name }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" name="email" class="form-control" id="email" placeholder="Enter Email Id" required value="{{ std.email }}">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Update User</button>
+                    </form>
+              </div>
+    </div>
+    <script>
+        {% if error_message %}
+        alert("{{ error_message }}");
+        {% endif %}
+    </script>
+    {% include "footer.html" %}
+</body>
+</html>

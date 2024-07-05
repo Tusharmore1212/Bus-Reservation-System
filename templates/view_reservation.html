@@ -1,0 +1,68 @@
+<!-- reservations.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Reservations</title>
+    {% load static %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <style>
+        .form-container h1 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #fff;
+            width:30%;
+            margin-left:35%;
+            margin-top:2%;
+            padding: 10px 10px;
+            text-align: center;
+            border-radius: 8px;
+            background-color:rgb(40, 99, 201);
+        }
+    </style>
+</head>
+<body>
+    {% include "admin_navbar.html" %}
+    <div class="form-container">
+        <h1>RESERVATIONS</h1>
+        {% if reservations %}
+            <table class="table table-striped">
+                <thead>
+                    <tr style="background-color:blue;color:white" >
+                        <th>Sr. No</th>
+                        <th>Bus Name</th>
+                        <th>Bus Number</th>
+                        <th>Source</th>
+                        <th>Destination</th>
+                        <th>Date</th>
+                        <th>Seats</th>
+                        <th>Total Price</th>
+                        <th>Reservation Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for reservation in reservations %}
+                        <tr>
+                            <td>{{forloop.counter}}</td>
+                            <td>{{ reservation.bus.bus_name }}</td>
+                            <td>{{ reservation.bus.bus_no }}</td>
+                            <td>{{ reservation.bus.source }}</td>
+                            <td>{{ reservation.bus.destination }}</td>
+                            <td>{{ reservation.bus.date }}</td>
+                            <td>{{ reservation.num_seats }}</td>
+                            <td>{{ reservation.total_price }}</td>
+                            <td>{{ reservation.reservation_date }}</td>
+                            {% comment %} <td><a href="/del_res/{{reservation.id}}" class="btn btn-danger md-sm">Cancel Rservation</a></td> {% endcomment %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>You have no reservations.</p>
+        {% endif %}
+    </div>
+    {% include "footer.html" %}
+</body>
+</html>

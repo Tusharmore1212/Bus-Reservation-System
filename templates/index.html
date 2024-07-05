@@ -1,0 +1,27 @@
+<!-- base.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Your Website{% endblock %}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="static/css/style.css">
+    <link rel="stylesheet" href="static/css/nav.css">
+
+</head>
+<body>
+{% include "navbar.html" %}
+{% load static %}
+<div class="image-container">
+    <img src="{% static 'img/o.png' %}" alt="Image Description" class="img-fluid mb-4 full-screen-image">
+    <h1 class="image-text"><b>FIND YOUR TRIP WITH Us...!<b></h1>
+</div>
+
+<div class="container mt-4">
+        {% block content %}
+        {% endblock %}
+    </div>
+{% include "footer.html" %}
+
+  

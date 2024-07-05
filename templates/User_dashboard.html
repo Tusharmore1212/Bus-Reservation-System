@@ -1,0 +1,14 @@
+
+{% include "User_navbar.html" %}
+<div class="container mt-4">
+    {% load static %}
+    <img src="{% static 'img/3.jpg' %}" alt="Image Description" class="img-fluid mb-4 full-screen-image">
+</div>
+
+<div class="container">
+    {% block content %}
+    {% endblock %}
+</div>
+{% include "footer.html" %}
+
+  

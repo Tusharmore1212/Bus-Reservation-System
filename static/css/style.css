@@ -1,0 +1,43 @@
+
+        .footer {
+            background-color:rgb(40, 99, 201);
+            color:rgb(244, 226, 226);
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+        .footer a {
+            color: #e7e4e4;
+            text-decoration: none;
+        }
+        .footer a:hover {
+            text-decoration: underline;
+        }
+        /* style.css */
+.image-container {
+    position: relative;
+    text-align: center;
+    color: white;
+}
+
+.image-container img {
+    width: 900px;
+    height: auto;
+    margin-left:37%;
+}
+
+.image-text {
+    position: absolute;
+    top: 40%;
+    left: 20%;
+    transform: translate(-50%, -50%);
+    font-size: 3em;
+    background-color: rgb(246, 244, 238); 
+    padding: 40px;
+    border-radius: 10px;
+    width:30%;
+    border: 5px solid rgb(5, 92, 223);;
+    color:rgb(5, 92, 223);
+}

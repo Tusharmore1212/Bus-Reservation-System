@@ -1,0 +1,57 @@
+<!-- base.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Your Website{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/nav.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/reg.css' %}">
+</head>
+<body>
+    {% include "navbar.html" %}
+    <div class="container">
+            <div class="form-container">
+                <h2>Update Bus Details</h2>
+                <form action="/doupdatebus/{{buses.id}}/" method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="Bus_name">Bus Name</label>
+                        <input type="text" id="bus_name" name="bus_name" required value={{buses.bus_name}}>
+                    </div>
+                    <div class="form-group">
+                        <label for="Bus_no">Bus Number</label>
+                        <input type="text" id="bus_no" name="bus_no" required value={{buses.bus_no}}>
+                    </div>
+                    <div class="form-group">
+                        <label for="source">Source</label>
+                        <input type="text" id="source" name="source" required value={{buses.source}}>
+                    </div>
+                    <div class="form-group">
+                        <label for="destination">Destination</label>
+                        <input type="text" id="destination" name="destination" required value={{buses.destination}}>
+                    </div>
+                    <div class="form-group">
+                        <label for="date">Date</label>
+                        <input type="date" id="date" name="date" required value={{buses.date|date:'Y-m-d'}}>
+                    </div>
+                    <div class="form-group">
+                        <label for="price">Price</label>
+                        <input type="text" id="price" name="price" required value={{buses.seat_price}}>
+                    </div>
+                    <button type="submit">Update</button>
+                </form>
+            </div>
+        </div>
+   
+    <script>
+        {% if error_message %}
+        alert("{{ error_message }}");
+        {% endif %}
+    </script>
+    {% include "footer.html" %}
+</body>
+</html>

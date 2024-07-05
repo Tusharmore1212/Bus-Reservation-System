@@ -1,0 +1,61 @@
+<!-- base.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Your Website{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/nav.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/reg.css' %}">
+</head>
+<body>
+    {% include "admin_navbar.html" %}
+    <div class="container">
+            <div class="form-container">
+                <h2>ADD BUS</h2>
+                <form action="/addbus/" method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="Bus_name">Bus Name</label>
+                        <input type="text" id="Bus_name" name="Bus_name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="Bus_no">Bus Number</label>
+                        <input type="text" id="Bus_no" name="Bus_no" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="source">Source</label>
+                        <input type="text" id="source" name="source" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="destination">Destination</label>
+                        <input type="text" id="destination" name="destination" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="date">Date</label>
+                        <input type="date" id="date" name="date" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="seat">Available seats</label>
+                        <input type="text" id="seat" name="seat" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="price">Price</label>
+                        <input type="text" id="price" name="price" required>
+                    </div>
+                    <button type="submit">Add</button>
+                </form>
+            </div>
+        </div>
+   
+    <script>
+        {% if error_message %}
+        alert("{{ error_message }}");
+        {% endif %}
+    </script>
+    {% include "footer.html" %}
+</body>
+</html>

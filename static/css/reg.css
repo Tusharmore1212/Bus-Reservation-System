@@ -1,0 +1,125 @@
+/* Reset some default styles */
+body, h2, p, input, button {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.table1{
+    width: 70%;
+}
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f7f7f7;
+    /* display: flex; */
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.form-container {
+    background-color: #fff;
+    padding: 30px;
+    /* padding-top: 0; */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 500px;
+    max-width: 100%;
+    margin-left: 10%;
+}
+
+.form-container h2 {
+    margin-bottom: 20px;
+    margin-top:0px;
+    font-size: 24px;
+    
+    width: 100%;
+    height: 40px;
+    color: #333;
+    padding-top: 7px;
+    text-align: center;
+    /* border-radius: 8px; */
+    background-color: rgb(40, 99, 201);
+}
+.book-image{
+    width: 100%; 
+    height:100%;
+    object-fit:cover;
+}
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Align items at the top */
+    width: 100%;
+    margin-left: 0;
+    max-width: 1200px; /* Adjust max-width as needed */
+}
+.form-container h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #fff;
+    padding: 10px 10px;
+    text-align: center;
+    border-radius: 8px;
+    background-color:rgb(40, 99, 201);
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+/* Style the form labels */
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 14px;
+    color: #333;
+}
+
+/* Style the form inputs */
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Style the submit button */
+button {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    color: #fff;
+    background-color: rgb(40, 99, 201);
+    border: none;
+    /* border-radius: 4px; */
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+/* Add hover effect to the submit button */
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Add focus effect to the inputs */
+input:focus {
+    border-color: #007BFF;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Style for the bus image */
+/* .bus-image {
+    flex: 1; 
+    margin-left: 10px; 
+    border-radius: 8px;
+    overflow: hidden; 
+} */
+
+/* .bus-image img {
+    width: 80%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 8px;
+} */
